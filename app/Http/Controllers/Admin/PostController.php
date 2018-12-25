@@ -19,7 +19,7 @@ use App\Post_Tag;
 class PostController extends Controller
 {
 
-    public function __construct()
+    public function __construct(Post $post)
     {
         $this->middleware('auth');
     }
@@ -78,16 +78,17 @@ class PostController extends Controller
         if($request->image != "") {
             $post->image = $request->image;
         }
+        if($request->image == "" || $request->image == NULL) {
+            $post->image = "/photos/1/Test/post-default.jpg";
+        }
         $post->save();
         $post_id = $post->id;
         $tag = $request->tag;
-
-
         if($tag != "" || $tag != NULL) {
             $tags = explode(",", $tag);
             foreach ($tags as $t) {
                 $checkExistTag = DB::table('tags')->select('id','name')->orderBy('id','DESC')->where('tags.name',$t)->get();
-                if(count($checkExistTag) <= 0) { //If don't have tag
+                if(count($checkExistTag) <= 0) {
                     $tagObj = new Tag;
                     $tagObj->name = $t;
                     $tagObj->alias = changeTitle($t);
@@ -96,10 +97,9 @@ class PostController extends Controller
                     $idTag = $tagObj->id;
 
                 }
-                else { //If have tag
+                else {
                     $checkexistTag = DB::table('tags')->select('id','name')->orderBy('id','DESC')->where('tags.name',$t)->get();
                     $idTag = $checkexistTag[0]->id;
-
                 }
 
                 $post_tagObj = new Post_Tag;
@@ -197,6 +197,7 @@ class PostController extends Controller
                     $tagObj = new Tag;
                     $tagObj->name = $t;
                     $tagObj->alias = changeTitle($t);
+                    $tagObj->user_id = Auth::user()->id;
                     $tagObj->save();
                     $idTag = $tagObj->id;
                 }
@@ -225,7 +226,12 @@ class PostController extends Controller
         if($request->image != "") {
             $post->image = $request->image;
         }
-
+        if($request->image != "") {
+            $post->image = $request->image;
+        }
+        if($request->image == "" || $request->image == NULL) {
+            $post->image = "/photos/1/Test/post-default.jpg";
+        }
         $post->save();
         return redirect()->route('admin.post.list');
 

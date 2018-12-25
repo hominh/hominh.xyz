@@ -27,6 +27,7 @@ class CreatePostsTable extends Migration
             $table->string('type', 20);
             $table->integer('posttype_id');
             $table->integer('status');
+            $table->integer('view');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

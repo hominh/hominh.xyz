@@ -18,7 +18,22 @@ Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
+
+
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('demo-pusher','HomeController@getPusher');
+// Truyển message lên server Pusher
+ Route::get('fire-event','HomeController@fireEvent');
+
+
+Route::get('category/{alias}.html','CategoryController@getPostByCategory');
+Route::get('tag/{alias}.html','TagController@getPostByTag');
+Route::get('post/{alias}.html','PostController@getPostByAlias');
+Route::post('comment','CommentController@store');
+Route::get('contact.html','ContactController@index');
+Route::post('contact','ContactController@storeMessage');
+Route::post('/search','PostController@search');
 
 Route::group(['prefix'=>'admin'],function(){
     Route::group(['prefix'=>'category'],function(){
@@ -31,7 +46,7 @@ Route::group(['prefix'=>'admin'],function(){
     });
 
     Route::group(['prefix'=>'post'],function(){
-        Route::get('list',['as'=>'admin.post.list','uses'=>'Admin\PostController@index']);
+        Route::get('list',['as'=>'admin.post.list','uses'=>'Admin\PostController@index','middleware'=>['permission:post-list|post-create|post-edit|post-delete']]);
         Route::get('create',['as'=>'admin.post.create','uses'=>'Admin\PostController@create']);
         Route::post('store',['as'=>'admin.post.store','uses'=>'Admin\PostController@store']);
         Route::get('delete/{id}',['as'=>'admin.post.delete','uses'=>'Admin\PostController@destroy']);
@@ -39,15 +54,33 @@ Route::group(['prefix'=>'admin'],function(){
         Route::post('update/{id}',['as'=>'admin.post.update','uses'=>'Admin\PostController@update']);
     });
 
-
-
-    Route::group(['prefix'=>'slide'],function(){
-        Route::get('list',['as'=>'admin.slide.list','uses'=>'Admin\SlideController@index']);
-        Route::get('create',['as'=>'admin.slide.create','uses'=>'Admin\SlideController@create']);
-        Route::post('store',['as'=>'admin.slide.store','uses'=>'Admin\SlideController@store']);
-        Route::get('delete/{id}',['as'=>'admin.slide.delete','uses'=>'Admin\SlideController@destroy']);
-        Route::get('edit/{id}',['as'=>'admin.slide.edit','uses'=>'Admin\SlideController@edit']);
-        Route::post('update/{id}',['as'=>'admin.slide.update','uses'=>'Admin\SlideController@update']);
-        Route::get('delImg/{id}',['as'=>'admin.slide.delImg','uses'=>'Admin\SlideController@getDelImg']);
+    Route::group(['prefix'=>'config'],function(){
+        Route::get('list',['as'=>'admin.config.list','uses'=>'Admin\ConfigController@index']);
+        Route::get('create',['as'=>'admin.config.create','uses'=>'Admin\ConfigController@create']);
+        Route::post('store',['as'=>'admin.config.store','uses'=>'Admin\ConfigController@store']);
+        Route::get('delete/{id}',['as'=>'admin.config.delete','uses'=>'Admin\ConfigController@destroy']);
+        Route::get('edit/{id}',['as'=>'admin.config.edit','uses'=>'Admin\ConfigController@edit']);
+        Route::post('update/{id}',['as'=>'admin.config.update','uses'=>'Admin\ConfigController@update']);
     });
+
+    Route::group(['prefix'=>'posttype'],function(){
+        Route::get('list',['as'=>'admin.posttype.list','uses'=>'Admin\PosttypeController@index']);
+        Route::get('create',['as'=>'admin.posttype.create','uses'=>'Admin\PosttypeController@create']);
+        Route::post('store',['as'=>'admin.posttype.store','uses'=>'Admin\PosttypeController@store']);
+        Route::get('delete/{id}',['as'=>'admin.posttype.delete','uses'=>'Admin\ConfigController@destroy']);
+        Route::get('edit/{id}',['as'=>'admin.posttype.edit','uses'=>'Admin\PosttypeController@edit']);
+        Route::post('update/{id}',['as'=>'admin.posttype.update','uses'=>'Admin\ConfigController@update']);
+    });
+
+
+    Route::group(['prefix'=>'contact'],function(){
+        Route::get('list',['as'=>'admin.contact.list','uses'=>'Admin\ContactController@index']);
+        Route::get('delete/{id}',['as'=>'admin.contact.delete','uses'=>'Admin\ContactController@destroy']);
+        Route::get('edit/{id}',['as'=>'admin.contact.edit','uses'=>'Admin\ContactController@edit']);
+    });
+});
+
+Route::group(['prefix'=>'admin'],function(){
+    Route::get('home',['as'=>'admin.home.index','uses'=>'Admin\HomeController@index']);
+    Route::get('logout',['as'=>'admin.home.logout','uses'=>'Admin\HomeController@getLogout']);
 });

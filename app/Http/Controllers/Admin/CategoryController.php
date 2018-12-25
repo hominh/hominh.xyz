@@ -11,8 +11,9 @@ use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
-    public function __construct()
+    public function __construct(Category $category)
     {
+        $category = new Category;
         $this->middleware('auth');
     }
 
@@ -54,9 +55,8 @@ class CategoryController extends Controller
             'name' => 'required|unique:categories|min:3',
         ]);
 
-
-        $hassub = 1;
         $category = new Category;
+        $hassub = 1;
         $category->name = $request->name;
         $category->alias = changeTitle($request->name);
         $category->parent_id = $request->parent;

@@ -23,6 +23,8 @@ class CreateConfigsTable extends Migration
             $table->string('email',100);
             $table->string('skype',100);
             $table->string('phone',100);
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

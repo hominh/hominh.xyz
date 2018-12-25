@@ -3,16 +3,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-lg-4 footer-about wow fadeInUp">
-                    <img class="logo-footer" src="image/icon/favicon-96x96.png" alt="logo-footer" data-at2x="assets/img/logo.html">
+                    <img class="logo-footer" src="{{URL::asset($configs[0]['logo'])}}" alt="logo-footer" data-at2x="assets/img/logo.html">
                     <p>Blog cá nhân của Hồ Minh.<br>
             Mê game, code Laravel, và viết blog khi rảnh!</p>
                     <p><a href="#">Our Team</a></p>
                 </div>
                 <div class="col-md-4 col-lg-4 offset-lg-1 footer-contact wow fadeInDown">
                     <h3>Contact</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Tokyo, Minato</p>
-                    <p><i class="fas fa-phone"></i> Phone: +81 090-5582-2490</p>
-                    <p><i class="fas fa-envelope"></i> Email: <a href="mailto:minhhh12@gmail.com">minhhh12@gmail.com</a></p>
+                    <p><i class="fas fa-map-marker-alt"></i> {!! $configs[0]['address'] !!}</p>
+                    <p><i class="fas fa-phone"></i> Phone: {!! $configs[0]['phone'] !!}</p>
+                    <p><i class="fas fa-envelope"></i> Email: <a href="mailto:{!! $configs[0]['email'] !!}">{!! $configs[0]['email'] !!}</a></p>
                     <p><i class="fab fa-skype"></i> Skype: hominh12</p>
                 </div>
                 <div class="col-md-4 col-lg-3 footer-social wow fadeInUp">

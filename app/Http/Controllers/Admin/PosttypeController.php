@@ -13,8 +13,9 @@ use App\Http\Controllers\Controller;
 class PosttypeController extends Controller
 {
 
-    public function __construct()
+    public function __construct(Posttype $posttype)
     {
+
         $this->middleware('auth');
     }
     /**
@@ -23,7 +24,7 @@ class PosttypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {	
+    {
     	$data = DB::table('posttypes')
             ->join('users','posttypes.user_id','=','users.id')
             ->select('posttypes.id as id', 'posttypes.name as pname','users.name as uname','posttypes.created_at')
@@ -52,7 +53,6 @@ class PosttypeController extends Controller
         $this->validate($request, [
             'name' => 'required|unique:posttypes|min:5',
         ]);
-
         $posttype = new Posttype;
         $posttype->name = $request->name;
         $posttype->user_id = Auth::user()->id;

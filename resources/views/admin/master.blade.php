@@ -268,7 +268,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <i class="icon-lock"></i> Lock Screen </a>
                                     </li>
                                     <li>
-                                        <a href="page_user_login_1.html">
+                                        <a href="{!! route('admin.home.logout') !!}">
                                             <i class="icon-key"></i> Log Out </a>
                                     </li>
                                 </ul>
@@ -324,29 +324,43 @@ License: You must have a valid license purchased only from themeforest(the above
                             <li class="nav-item start active open">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <i class="icon-home"></i>
-                                    <span class="title">Dashboard</span>
-                                    <span class="selected"></span>
-                                    <span class="arrow open"></span>
+                                    <span class="title">Admin Dashboard</span>
+                                    <!--<span class="selected"></span>
+                                    <span class="arrow open"></span>!-->
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item start active open">
-                                        <a href="index.html" class="nav-link ">
+                                        <a href="{!! route('admin.category.list') !!}" class="nav-link ">
                                             <i class="icon-bar-chart"></i>
-                                            <span class="title">Dashboard 1</span>
+                                            <span class="title">Category</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li class="nav-item start ">
-                                        <a href="dashboard_2.html" class="nav-link ">
+                                        <a href="{!! route('admin.post.list') !!}" class="nav-link ">
                                             <i class="icon-bulb"></i>
-                                            <span class="title">Dashboard 2</span>
+                                            <span class="title">Post</span>
                                             <span class="badge badge-success">1</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start ">
-                                        <a href="dashboard_3.html" class="nav-link ">
+                                        <a href="{!! route('admin.posttype.create') !!}" class="nav-link ">
+                                            <i class="icon-diamond"></i>
+                                            <span class="title">Posttype</span>
+                                            <span class="badge badge-danger">5</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item start ">
+                                        <a href="{!! route('admin.contact.list') !!}" class="nav-link ">
                                             <i class="icon-graph"></i>
-                                            <span class="title">Dashboard 3</span>
+                                            <span class="title">Contact</span>
+                                            <span class="badge badge-danger">5</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item start ">
+                                        <a href="{!! route('admin.config.list') !!}" class="nav-link ">
+                                            <i class="icon-graph"></i>
+                                            <span class="title">Config</span>
                                             <span class="badge badge-danger">5</span>
                                         </a>
                                     </li>
